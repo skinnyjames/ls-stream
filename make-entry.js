@@ -1,8 +1,13 @@
 module.exports = entry
 
 function Entry(path, stat) {
+  if(stat.error){
+    var error = stat.error;
+    delete stat.error
+  }
   this.path = path
   this.stat = stat
+  this.error = error
   this._ignored = false
 }
 
