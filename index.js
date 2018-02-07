@@ -81,6 +81,7 @@ function ls(fs, dir) {
           new_paths = paths.concat([entries[i]])
 
           entry = make_entry(join(new_paths), stats[i])
+          console.log(entry)
           stream.queue(entry)
 
           if(!stats.error && stats[i].isDirectory() && !entry.ignored()) {
