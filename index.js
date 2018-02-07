@@ -65,10 +65,10 @@ function ls(fs, dir) {
         fs.lstat(join(new_paths), function(err, stat) {
           stats[idx] = {};
           if(err){
-            stats[idx].error = err;
+            stats[idx].error = err
           }
           Object.assign(stats[idx], stat)
-          console.log(stats[idx]);
+          console.log(stats[idx])
           !--pending_stat && done()
         })
       }
