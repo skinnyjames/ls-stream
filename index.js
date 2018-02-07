@@ -63,6 +63,7 @@ function ls(fs, dir) {
 
         new_paths.push(entry)
         fs.lstat(join(new_paths), function(err, stat) {
+          console.log(err);
           stats[idx] = stat
           !--pending_stat && done()
         })
