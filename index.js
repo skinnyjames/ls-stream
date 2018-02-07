@@ -63,12 +63,11 @@ function ls(fs, dir) {
 
         new_paths.push(entry)
         fs.lstat(join(new_paths), function(err, stat) {
-          stats[idx] = {};
+
+          stats[idx] = stat
           if(err){
-            stats[idx].error = err
+            stats[idx].error = err;
           }
-          Object.assign(stats[idx], stat)
-          console.log(stats[idx])
           !--pending_stat && done()
         })
       }
@@ -81,10 +80,9 @@ function ls(fs, dir) {
           new_paths = paths.concat([entries[i]])
 
           entry = make_entry(join(new_paths), stats[i])
-          console.log(entry)
           stream.queue(entry)
 
-          if(!stats.error && stats[i].isDirectory() && !entry.ignored()) {
+          if(!stats[i].error && stats[i].isDirectory() && !entry.ignored()) {
             ++pending
             fs.readdir(join(new_paths), receive(new_paths))
           }
