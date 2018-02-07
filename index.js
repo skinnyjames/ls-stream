@@ -64,7 +64,7 @@ function ls(fs, dir) {
         new_paths.push(entry)
         fs.lstat(join(new_paths), function(err, stat) {
 
-          stats[idx] = stat
+          stats[idx] = stat || {}
           if(err){
             stats[idx].error = err;
           }
