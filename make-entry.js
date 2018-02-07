@@ -1,10 +1,6 @@
 module.exports = entry
 
-function Entry(path, stat) {
-  if(stat.error){
-    var error = stat.error;
-    delete stat.error
-  }
+function Entry(path, stat, error) {
   this.path = path
   this.stat = stat
   this.error = error

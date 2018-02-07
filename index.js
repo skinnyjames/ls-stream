@@ -76,14 +76,18 @@ function ls(fs, dir) {
       function done() {
         var new_paths
           , entry
+          , error
 
         for(var i = 0, len = entries.length; i < len; ++i) {
           new_paths = paths.concat([entries[i]])
 
-          entry = make_entry(join(new_paths), stats[i])
+          error = stats[i].error
+          delete  stats[i].error
+
+          entry = make_entry(join(new_paths), stats[i], error)
           stream.queue(entry)
 
-          if(!stats[i].error && stats[i].isDirectory() && !entry.ignored()) {
+          if(!error && stats[i].isDirectory() && !entry.ignored()) {
             ++pending
             fs.readdir(join(new_paths), receive(new_paths))
           }
